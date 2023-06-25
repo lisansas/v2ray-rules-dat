@@ -203,13 +203,9 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
-Git config —— local user.name“ github-actions [ bot ]”Git config —— local user.email“41898282 + github-actions [ bot ]@users.  noreply.github.com”Git checkout-b release Git add。Git commit-m“ ${ env.RELEASE _ NAME }}”git 远程添加源“ https://${ github.actor }} : ${{ secret s.GITHUB _ TOKEN }}}@github.com/${ github.itory }}”git push-f-u 源版本
-
       - name: Purge jsdelivr CDN
         run: |
           cd publish || exit 1
           for file in $(ls); do
             curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
           done
-
-- name: Purge jsDelivr CDN run: | cd release | | exit 1 for file in $(ls) ; do curl-i“ https://Purge.jsdelivr.net/gh/$ {{ github.itory }}@release/${ file }”done
