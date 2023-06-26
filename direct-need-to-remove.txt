@@ -31,4 +31,5 @@ xjp.cc
 yanghengjun.com
 ydy.com
 yslang.com
-freemdict.com
+forum.freemdict.com
+cloud.freemdict.com
