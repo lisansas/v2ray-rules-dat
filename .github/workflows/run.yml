@@ -137,6 +137,20 @@ jobs:
           curl -sSL $WIN_UPDATE | grep "0.0.0.0" | awk '{print $2}' > win-update.txt
           curl -sSL $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > ./community/data/win-extra
           curl -sSL $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > win-extra.txt
+      - name: merge 'ios_rule_script/SteamCN'
+        env:
+          SED: sed '/^\s*#/d' | sed 's/DOMAIN,//g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g'
+        run: |
+          curl -sSL https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/SteamCN/SteamCN.list | ${{ env.SED }} > steamcn.txt
+          while read line; do grep -q "$line @cn" ./community/data/steam || sed -i "/$line/ s/$/ @cn/" ./community/data/steam; done < steamcn.txt
+          cat ./community/data/steam
+      - name: Add data for `meta`
+        env:
+          SED: sed '/^\s*#/d' | sed 's/^PROCESS-NAME,//' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d'
+        run: |
+          curl -sSL https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OneDrive/OneDrive.list | ${{ env.SED }} > ./community/data/onedrive
+          echo "sharepoint.cn" >> ./community/data/onedrive 
+          curl -sSL https://raw.githubusercontent.com/xishang0128/rules/main/sharepoint.list > ./community/data/sharepoint
       - name: Build geosite.dat file
         run: |
           cd custom || exit 1
