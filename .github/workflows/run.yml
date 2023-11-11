@@ -1,4 +1,4 @@
-anname: Build V2Ray rules dat files
+name: Build V2Ray rules dat files
 on:
   workflow_dispatch:
   schedule:
@@ -81,7 +81,7 @@ jobs:
 
       - name: Get and add reject domains into temp-reject.txt file
         run: |
-           curl -sSL $ANTIAD_DOMAINS_URL | perl -ne '/^((?=^.{3,255})[a-zA-Z0-9][-_a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-_a-zA-Z0-9]{0,62})+)/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL $ANTIAD_DOMAINS_URL | perl -ne '/^((?=^.{3,255})[a-zA-Z0-9][-_a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-_a-zA-Z0-9]{0,62})+)/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
