@@ -21,3 +21,4 @@ chinaplay.store
 fzxx.xyz
 lytma.top
 cdn-chat.buzztools.cloud
+deliver.kuwo.cn
