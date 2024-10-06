@@ -206,7 +206,7 @@ jobs:
       - name: Get geoip.dat relative files
         run: |
           wget -O geoip-lite.dat https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip-only-cn-private.dat
-          wget https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat
+          wget -O geoip.dat https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat
 
       - name: Build db and metadb file
         env:
