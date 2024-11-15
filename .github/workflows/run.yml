@@ -205,8 +205,8 @@ jobs:
 
       - name: Get geoip.dat relative files
         run: |
-          wget -O geoip-lite.dat https://github.com/xream/geoip/releases/latest/download/ip2location.geoip-only-cn-private.dat
-          wget -O geoip.dat https://github.com/xream/geoip/releases/latest/download/ip2location.geoip.dat
+          wget -O geoip-lite.dat https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip-only-cn-private.dat
+          wget -O geoip.dat https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat
 
       - name: Build db and metadb file
         env:
@@ -271,8 +271,8 @@ jobs:
       - name: Move and zip files
         run: |
           mkdir -p ./publish/
-          wget https://github.com/xream/geoip/releases/latest/download/ip2location.country-only-cn-private.mmdb -O ./publish/country-lite.mmdb
-          wget https://github.com/xream/geoip/releases/latest/download/ip2location.country.mmdb -O ./publish/country.mmdb
+          wget https://github.com/xream/geoip/releases/latest/download/ipinfo.country-only-cn-private.mmdb -O ./publish/country-lite.mmdb
+          wget https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb -O ./publish/country.mmdb
           wget https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb -O ./publish/GeoLite2-ASN.mmdb
           install -Dp ./geoip-lite.dat ./publish/
           install -Dp ./geoip.dat ./publish/
