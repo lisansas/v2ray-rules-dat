@@ -205,7 +205,7 @@ jobs:
 
       - name: Get geoip.dat relative files
         run: |
-          wget -O geoip-lite.dat https://github.com/xream/geoip/releases/latest/download/ip2location.geoip-only-cn-private.dat
+          wget -O geoip-lite.dat https://github.com/xishang0128/geoip/raw/release/geoip.dat
           wget -O geoip.dat https://github.com/xream/geoip/releases/latest/download/ip2location.geoip.dat
 
       - name: Build db and metadb file
@@ -255,6 +255,16 @@ jobs:
           cd convert
           go run ./ geosite -f ../community/geosite-lite.dat -o ../meta-rule/geo-lite/geosite
           go run ./ geoip -f ../geoip-lite.dat -o ../meta-rule/geo-lite/geoip
+
+      - name: Convert asn
+        env:
+          NO_SKIP: true
+        run: |
+          mkdir -p meta-rule/asn && mkdir -p sing-rule/asn
+          cd convert
+          wget https://raw.githubusercontent.com/xishang0128/geoip/release/GeoLite2-ASN.mmdb
+          go run ./ asn -o ../meta-rule/asn
+          go run ./ asn -o ../sing-rule/asn -t sing-box          
           
       - name: Convert bm7-rule-set to sing-rule-set
         env:
