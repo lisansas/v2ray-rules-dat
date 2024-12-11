@@ -1,0 +1,7 @@
+payload:
+    - IP-CIDR,2606:40:1240::/43
+    - IP-CIDR,2606:40:21c1:e000::/51
+    - IP-CIDR,2606:40:22c1:c000::/51
+    - IP-CIDR,2a05:dfc1:5acf::/48
+    - IP-CIDR,2a09:bac4:628::/45
+    - IP-CIDR,2a09:bac4:1628::/45
