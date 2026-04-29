@@ -226,13 +226,27 @@ jobs:
           geo convert ip -i v2ray -o meta -f geoip-lite.metadb ./geoip-lite.dat
       - name: Build cn-ip.mrs from DH-Geo source (mihomo)
         run: |
-          wget -q https://github.com/MetaCubeX/mihomo/releases/latest/download/mihomo-linux-amd64-compatible.gz -O mihomo.gz
+          # 1. 动态获取最新版的下载链接
+          API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases/latest"
+          DOWNLOAD_URL=$(curl -sL $API_URL | grep "browser_download_url" | grep "linux-amd64-compatible" | grep "\.gz" | head -n 1 | cut -d '"' -f 4)
+          
+          # 检查是否成功获取到链接
+          if [ -z "$DOWNLOAD_URL" ]; then
+            echo "错误: 无法获取 mihomo 的下载链接，请检查 GitHub API 或匹配规则。"
+            exit 1
+          fi
+          
+          echo "获取到下载链接: $DOWNLOAD_URL"
+          
+          # 2. 下载并解压 (去掉了 -q 以便日后排错，使用 -qO 覆盖输出为 mihomo.gz)
+          wget -O mihomo.gz "$DOWNLOAD_URL"
           gzip -d mihomo.gz && chmod +x mihomo
 
+          # 3. 下载 IP 规则文本
           curl -sSL https://raw.githubusercontent.com/DH-Teams/DH-Geo_AS_IP_CN/main/Geo_AS_IP_CN_All.txt -o cn-ip.txt
 
+          # 4. 转换规则并清理
           ./mihomo convert-ruleset ipcidr text cn-ip.txt cn-ip.mrs
-
           rm -f mihomo cn-ip.txt
       - name: Convert geo to sing-rule-set
         env:
